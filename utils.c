@@ -6,17 +6,18 @@
 /*   By: boksuz <boksuz@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 19:32:55 by boksuz            #+#    #+#             */
-/*   Updated: 2025/11/16 21:40:32 by boksuz           ###   ########.fr       */
+/*   Updated: 2025/11/16 22:10:17 by boksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int i;
-	int sign;
-	int result;
+	int	i;
+	int	sign;
+	int	result;
+
 	i = 0;
 	sign = 1;
 	result = 0;
@@ -36,8 +37,13 @@ int ft_atoi(const char *str)
 	return (result * sign);
 }
 
-int ft_putnbr(int nbr)
+int	ft_putnbr(int nbr)
 {
-	write(1, &nbr, 1);
+	char c;
+
+	if (char >= 10)
+		ft_putnbr(nbr / 10),
+	c = (nbr % 10) + '0';
+	write(1, &c, 1);
 	return (0);
 }

@@ -6,17 +6,14 @@
 /*   By: boksuz <boksuz@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 18:02:23 by boksuz            #+#    #+#             */
-/*   Updated: 2025/11/16 21:21:08 by boksuz           ###   ########.fr       */
+/*   Updated: 2025/11/16 22:08:37 by boksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-#include <signal.h>
-#include <unistd.h>
-
-
+# include <signal.h>
+# include <unistd.h>
 
 #endif
