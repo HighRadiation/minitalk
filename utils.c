@@ -6,7 +6,7 @@
 /*   By: boksuz <boksuz@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 19:32:55 by boksuz            #+#    #+#             */
-/*   Updated: 2025/11/16 22:10:17 by boksuz           ###   ########.fr       */
+/*   Updated: 2025/11/16 22:11:42 by boksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_putnbr(int nbr)
 {
 	char c;
 
-	if (char >= 10)
+	if (nbr >= 10)
 		ft_putnbr(nbr / 10),
 	c = (nbr % 10) + '0';
 	write(1, &c, 1);
