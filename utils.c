@@ -6,7 +6,7 @@
 /*   By: boksuz <boksuz@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 19:32:55 by boksuz            #+#    #+#             */
-/*   Updated: 2025/11/16 22:11:42 by boksuz           ###   ########.fr       */
+/*   Updated: 2025/11/17 16:48:52 by boksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-int	ft_putnbr(int nbr)
+void	ft_putnbr(int nbr)
 {
-	char c;
+	char	*base;
 
+	base = "0123456789";
 	if (nbr >= 10)
-		ft_putnbr(nbr / 10),
-	c = (nbr % 10) + '0';
-	write(1, &c, 1);
-	return (0);
+		ft_putnbr(nbr / 10);
+	write(1, &base[nbr % 10], 1);
 }

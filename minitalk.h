@@ -6,7 +6,7 @@
 /*   By: boksuz <boksuz@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 18:02:23 by boksuz            #+#    #+#             */
-/*   Updated: 2025/11/16 22:08:37 by boksuz           ###   ########.fr       */
+/*   Updated: 2025/11/17 16:16:58 by boksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,9 @@
 
 # include <signal.h>
 # include <unistd.h>
+# include <stdlib.h>
+
+void	ft_putnbr(int nbr);
+int		ft_atoi(const char *str);
 
 #endif
