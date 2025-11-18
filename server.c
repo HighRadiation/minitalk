@@ -30,9 +30,10 @@ static void take_signal(int signal, info_t *info, void *ucontext)
 	shift--;
 	if (shift < 0)
 	{
-		if (g_data == '\n')
+		if (g_data == '\0')
 			write(1, "\nMessage received.", 20);
-		write(1, &g_data, 1);
+		else
+			write(1, &g_data, 1);
 		g_data = 0;
 		shift = 7;
 	}
@@ -46,13 +47,15 @@ int	main(void)
 	ft_putnbr(getpid());
 	write(1, "\n", 1);
 
-	sigemptyset(&sa.sa_mask);			// sinyal maskesini temizle
-	sigaddset(&sa.sa_mask, SIGUSR1);	// SIGUSR1'i maskeye ekle
-	sigaddset(&sa.sa_mask, SIGUSR2);	// SIGUSRW'yi maskeye ekle
-	sa.sa_flags = SA_SIGINFO;			// 3 parametrel'i handler kullan
-	sa.sa_sigaction = take_signal		// handler fonksiyonunu ata
-	signal(SIGUSR1, &var, NULL);
-	signal(SIGUSR2, &var, NULL);
+	sigemptyset(&var.mask);			// sinyal maskesini temizle
+	sigaddset(&var._mask, SIGUSR1);	// SIGUSR1'i maskeye ekle
+	sigaddset(&var._mask, SIGUSR2);	// SIGUSRW'yi maskeye ekle
+	var._flags = SA_SIGINFO;			// 3 parametrel'i handler kullan
+	var.a_sigaction = take_signal		// handler fonksiyonunu ata
+
+	sigaction(SIGUSR1, &var, NULL);
+	sigaction(SIGUSR2, &var, NULL);
+
 	write(1, "\n", 1);
 	while (1)
 		pause();
