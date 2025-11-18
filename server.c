@@ -6,13 +6,13 @@
 /*   By: boksuz <boksuz@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 19:28:46 by boksuz            #+#    #+#             */
-/*   Updated: 2025/11/17 18:08:18 by boksuz           ###   ########.fr       */
+/*   Updated: 2025/11/18 21:45:44 by boksuz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void take_signal(int signal, info_t *info, void *ucontext)
+static void take_signal(int signal, ino_t *info, void *ucontext)
 {
 	(void)info;
 	(void)ucontext;
@@ -30,8 +30,10 @@ static void take_signal(int signal, info_t *info, void *ucontext)
 	shift--;
 	if (shift < 0)
 	{
-		if (g_data == '\n')
-			write(1, "\nMessage received.", 20);
+		if (g_data == '\0')// buraya ekleme yapılacak message yazmıyor not: newlinedan sonra karakter var ise yazma.
+		{
+			write(1, "\nMessage received.", 19);
+		}
 		write(1, &g_data, 1);
 		g_data = 0;
 		shift = 7;
@@ -40,7 +42,7 @@ static void take_signal(int signal, info_t *info, void *ucontext)
 
 int	main(void)
 {
-	struct sigaction var;
+	struct sigaction sa;
 
 	write(1, "Server running on PID: ", 22);
 	ft_putnbr(getpid());
@@ -50,9 +52,9 @@ int	main(void)
 	sigaddset(&sa.sa_mask, SIGUSR1);	// SIGUSR1'i maskeye ekle
 	sigaddset(&sa.sa_mask, SIGUSR2);	// SIGUSRW'yi maskeye ekle
 	sa.sa_flags = SA_SIGINFO;			// 3 parametrel'i handler kullan
-	sa.sa_sigaction = take_signal		// handler fonksiyonunu ata
-	signal(SIGUSR1, &var, NULL);
-	signal(SIGUSR2, &var, NULL);
+	sa.sa_sigaction = (void *)take_signal;		// handler fonksiyonunu ata
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	write(1, "\n", 1);
 	while (1)
 		pause();
