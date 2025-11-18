@@ -13,7 +13,6 @@ OBJS_SERVER = 	$(SRCS_SERVER: .o=.c)
 SRCS_CLIENT = client.c
 OBJS_CLIENT = $(SRCS_CLIENT: .o=.c)
 
-
 all: $(SERVER) $(CLIENT)
 
 $(SERVER): $(OBJS_SERVER) minitalk.h
