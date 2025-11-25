@@ -30,7 +30,6 @@ static void	procces_message(char *str)
 	int	shift;
 
 	i = 0;
-	shift = 7;
 	while (str[i])
 	{
 		shift = 7;
@@ -42,6 +41,7 @@ static void	procces_message(char *str)
 		}
 		i++;
 	}
+	shift = 7;
 	while (shift >= 0)
 	{
 		bit = ('\0' >> shift) & 1;
@@ -54,11 +54,10 @@ int	main(int argc, char **argv)
 {
 	if (argc != 3)
 	{
-		write(2, "Error: ./client [server_pid] [text] ", 37);
-		return (0);
+		write(2, "Error: ./client [server_pid] [text]\n", 36);
+		return (1);
 	}
-	g_server_pid = atoi(argv[1]);
+	g_server_pid = ft_atoi(argv[1]);
 	procces_message(argv[2]);
-	procces_message("\n");
 	return (0);
 }

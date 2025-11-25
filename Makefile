@@ -8,24 +8,27 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SRCS_SERVER = server.c utils.c
-OBJS_SERVER = 	$(SRCS_SERVER: .o=.c)
+OBJS_SERVER = $(SRCS_SERVER:.c=.o)
 
-SRCS_CLIENT = client.c
-OBJS_CLIENT = $(SRCS_CLIENT: .o=.c)
+SRCS_CLIENT = client.c utils.c
+OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
 
 all: $(SERVER) $(CLIENT)
 
-$(SERVER): $(OBJS_SERVER) minitalk.h
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(SERVER): $(OBJS_SERVER)
 	$(CC) $(CFLAGS) $(OBJS_SERVER) -o $(SERVER)
 
-$(CLIENT): $(OBJS_CLIENT) minitalk.h
+$(CLIENT): $(OBJS_CLIENT)
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) -o $(CLIENT)
 
 clean:
-	$(RM) $(SERVER) \
-	$(RM) $(CLIENT)
+	$(RM) $(OBJS_SERVER) $(OBJS_CLIENT)
 
 fclean: clean
+	$(RM) $(SERVER) $(CLIENT)
 
 re: fclean all
 
