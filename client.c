@@ -22,13 +22,20 @@ static void	ack_handler(int sig)
 
 static void	send_to_server(int server_pid, char bit)
 {
+	sigset_t	mask;
+	sigset_t	old_mask;
+
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGUSR1);
+	sigprocmask(SIG_BLOCK, &mask, &old_mask);
 	g_received = 0;
 	if (bit == 0)
 		kill(server_pid, SIGUSR1);
 	else
 		kill(server_pid, SIGUSR2);
 	while (!g_received)
-		pause();
+		sigsuspend(&old_mask);
+	sigprocmask(SIG_UNBLOCK, &mask, NULL);
 }
 
 static void	procces_message(int server_pid, char *str)
