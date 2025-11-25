@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-static int	sig_to_bit(int signal)
+static int	signal_to_bit(int signal)
 {
 	if (signal == SIGUSR1)
 		return (0);
@@ -49,7 +49,7 @@ static void	take_signal(int signal, siginfo_t *info, void *ucontext)
 	int	bit;
 
 	(void)ucontext;
-	bit = sig_to_bit(signal);
+	bit = signal_to_bit(signal);
 	if (bit == -1)
 		return ;
 	add_bit(bit);
