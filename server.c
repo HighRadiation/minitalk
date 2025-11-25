@@ -48,12 +48,13 @@ static void	take_signal(int signal, siginfo_t *info, void *ucontext)
 {
 	int	bit;
 
-	(void)info;
 	(void)ucontext;
 	bit = sig_to_bit(signal);
 	if (bit == -1)
 		return ;
 	add_bit(bit);
+	if (info != NULL && info->si_pid != 0)
+		kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)

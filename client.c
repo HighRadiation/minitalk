@@ -12,18 +12,26 @@
 
 #include "minitalk.h"
 
-static int	g_server_pid;
+static volatile sig_atomic_t	g_received = 0;
 
-static void	send_to_server(char bit)
+static void	ack_handler(int sig)
 {
-	if (bit == 0)
-		kill(g_server_pid, SIGUSR1);
-	else
-		kill(g_server_pid, SIGUSR2);
-	usleep(1000);
+	(void)sig;
+	g_received = 1;
 }
 
-static void	procces_message(char *str)
+static void	send_to_server(int server_pid, char bit)
+{
+	g_received = 0;
+	if (bit == 0)
+		kill(server_pid, SIGUSR1);
+	else
+		kill(server_pid, SIGUSR2);
+	while (!g_received)
+		pause();
+}
+
+static void	procces_message(int server_pid, char *str)
 {
 	int	i;
 	int	bit;
@@ -36,7 +44,7 @@ static void	procces_message(char *str)
 		while (shift >= 0)
 		{
 			bit = (str[i] >> shift) & 1;
-			send_to_server(bit);
+			send_to_server(server_pid, bit);
 			shift--;
 		}
 		i++;
@@ -45,19 +53,24 @@ static void	procces_message(char *str)
 	while (shift >= 0)
 	{
 		bit = ('\0' >> shift) & 1;
-		send_to_server(bit);
+		send_to_server(server_pid, bit);
 		shift--;
 	}
 }
 
 int	main(int argc, char **argv)
 {
+	struct sigaction	sa;
+
 	if (argc != 3)
 	{
 		write(2, "Error: ./client [server_pid] [text]\n", 36);
 		return (1);
 	}
-	g_server_pid = ft_atoi(argv[1]);
-	procces_message(argv[2]);
+	sa.sa_handler = ack_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+	procces_message(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }
