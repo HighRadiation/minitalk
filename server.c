@@ -24,7 +24,7 @@ static int	sig_to_bit(int signal)
 static void	print_char(char c)
 {
 	if (c == '\0')
-		write(1, "\nMessage received.", 19);
+		write(1, "\nMessage received.\n", 20);
 	else
 		write(1, &c, 1);
 }
