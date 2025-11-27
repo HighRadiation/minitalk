@@ -19,5 +19,6 @@
 
 void	ft_putnbr(int nbr);
 int		ft_atoi(const char *str);
+int 	check_overflow(const char *str_pid);
 
 #endif

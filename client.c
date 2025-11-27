@@ -68,16 +68,20 @@ static void	procces_message(int server_pid, char *str)
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
+	int			server_pid;
 
 	if (argc != 3)
 	{
 		write(2, "Error: ./client [server_pid] [text]\n", 36);
 		return (1);
 	}
+	server_pid = check_overflow(argv[1]);
+	if (server_pid == 0)
+		return (1);
 	sa.sa_handler = ack_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
-	procces_message(ft_atoi(argv[1]), argv[2]);
+	procces_message(server_pid, argv[2]);
 	return (0);
 }

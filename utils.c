@@ -12,6 +12,16 @@
 
 #include "minitalk.h"
 
+int	ft_strlen(const char *str)
+{
+	int len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
+}
+
 int	ft_atoi(const char *str)
 {
 	int	i;
@@ -45,4 +55,22 @@ void	ft_putnbr(int nbr)
 	if (nbr >= 10)
 		ft_putnbr(nbr / 10);
 	write(1, &base[nbr % 10], 1);
+}
+
+int check_overflow(const char *str_pid)
+{
+	int	pid;
+
+	if (ft_strlen(str_pid) > 10)
+	{
+		write (2, "Error: Invalid PID\n", 19);
+		return (0);
+	}
+	pid = ft_atoi(str_pid);
+	if (pid <= 0)
+	{
+		write(2, "Error: Invalid PID\n", 19);
+		return (0);
+	}
+	return (pid);
 }
