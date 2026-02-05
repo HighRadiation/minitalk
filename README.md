@@ -119,10 +119,3 @@ If you implemented bonuses, you can add:
 * `man 2 signal` - Signal handling
 * `man 2 sigaction` - Advanced signal handling
 * `man 3 usleep` - Microsecond delays
-
----
-
-**Grade:** [Your grade here]  
-**Project Duration:** [Your duration]  
-**School:** 42
-
