@@ -126,6 +126,3 @@ If you implemented bonuses, you can add:
 **Project Duration:** [Your duration]  
 **School:** 42
 
----
-
-Ne istersin?  🚀
