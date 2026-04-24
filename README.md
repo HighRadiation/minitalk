@@ -2,7 +2,7 @@
 
 ---
 
-## The main idea is message transmission using signals. Okay, how did I do this?
+## The main idea is message transmission using signals. Okay, how did I do that?
 
 ### First of all, I learned what a signal is;
 
